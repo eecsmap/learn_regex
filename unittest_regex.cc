@@ -1,9 +1,16 @@
-#define BOOST_TEST_MODULE Regex Unit Test
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
+#include <boost/test/data/test_case.hpp>
 
 #include "regex.h"
 
-BOOST_AUTO_TEST_CASE(testsomething)
+using TestData = std::tuple<char const*, char const*, bool>;
+static auto g_TestData{std::vector<TestData>{
+	TestData{"", "", true},
+	TestData{"a", "", false},
+	TestData{"a", "a", true},
+	TestData{"b", "a", false},
+}};
+BOOST_DATA_TEST_CASE(RegexMatch_VariousData_ReturnExpected, g_TestData, s, p, expected)
 {
-	BOOST_TEST(regex_match("", ""));
+	BOOST_TEST(expected == regex_match(s, p));
 }
