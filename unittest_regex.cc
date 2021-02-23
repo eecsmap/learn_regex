@@ -9,6 +9,16 @@ static auto g_TestData{std::vector<TestData>{
 	TestData{"a", "", false},
 	TestData{"a", "a", true},
 	TestData{"b", "a", false},
+	TestData{"", "a", false},
+	TestData{"", "a*", true},
+	TestData{"a", "a*", true},
+	TestData{"aa", "a*", true},
+	TestData{"a", "a*a", true},
+	TestData{"aa", "a*a", true},
+	TestData{"a", ".", true},
+	TestData{"b", ".", true},
+	TestData{"", ".*", true},
+	TestData{"ab", ".*b", true},
 }};
 BOOST_DATA_TEST_CASE(RegexMatch_VariousData_ReturnExpected, g_TestData, s, p, expected)
 {
